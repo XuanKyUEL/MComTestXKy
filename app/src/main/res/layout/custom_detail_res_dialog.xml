@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginTop="200dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/round_dialog_res_detail_bg"
+    android:paddingStart="5dp"
+    android:paddingEnd="5dp">
+
+    <ImageView
+        android:id="@+id/custom_detail_res_dialog_image"
+        android:layout_width="380dp"
+        android:layout_height="350dp"
+        android:src="@drawable/noodle_bun_dau_a_chanh"
+        android:scaleType="fitCenter"/>
+
+    <TextView
+        android:id="@+id/custom_detail_res_dialog_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:text="Bún đậu ăn chảnh"
+        android:layout_marginTop="3dp"
+        android:layout_gravity="center"
+        android:textStyle="bold"
+        android:textSize="26sp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="3dp"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/custom_detail_res_dialog_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4.5"
+            android:textSize="23sp"
+            android:textStyle="bold"
+            android:textColor="@color/yellow" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/star"
+            android:layout_marginStart="3dp"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/custom_detail_res_dialog_place"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:layout_height="60dp"
+        android:textSize="22sp"
+        android:text="38 Đường Số 17, P. Linh Trung, Q. Thủ Đức, Tp.HCM"
+        android:textColor="@color/subcolor"/>
+</LinearLayout>

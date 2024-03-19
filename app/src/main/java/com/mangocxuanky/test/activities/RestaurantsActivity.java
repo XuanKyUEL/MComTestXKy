@@ -1,9 +1,15 @@
 package com.mangocxuanky.test.activities;
 
+import android.app.Dialog;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -15,6 +21,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.mangocxuanky.test.R;
@@ -30,6 +37,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class RestaurantsActivity extends AppCompatActivity {
 
@@ -56,10 +64,43 @@ public class RestaurantsActivity extends AppCompatActivity {
         category = fromCategory(category);
         List<Restaurant> restaurants = getRestaurants(category);
 
-        RestaurantAdapter restaurantAdapter = new RestaurantAdapter(this, restaurants);
+        RestaurantAdapter restaurantAdapter = new RestaurantAdapter(this, restaurants,this::showDetailsDialog);
         binding.recycleViewRes.setAdapter(restaurantAdapter);
         binding.recycleViewRes.setLayoutManager(new LinearLayoutManager(this));
     }
+
+    private void showDetailsDialog(Restaurant restaurant) {
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.custom_detail_res_dialog);
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.setCancelable(true);
+
+        // set animation
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+
+        // ánh xạ
+        ImageView dialogImage = dialog.findViewById(R.id.custom_detail_res_dialog_image);
+        TextView dialogName = dialog.findViewById(R.id.custom_detail_res_dialog_name);
+        TextView dialogRating = dialog.findViewById(R.id.custom_detail_res_dialog_rating);
+        TextView dialogPlace = dialog.findViewById(R.id.custom_detail_res_dialog_place);
+
+        // set data
+        dialogName.setText(restaurant.getPlaceName());
+        dialogRating.setText(String.valueOf(restaurant.getRatingValue()));
+        dialogPlace.setText(restaurant.getAddress());
+        int resId = getResources().getIdentifier(restaurant.getPhoto(), "drawable", getPackageName());
+        dialogImage.setImageResource(resId);
+
+
+        dialog.show();
+    }
+
+    private void loadDialogData() {
+        // set data to dialog
+
+    }
+
+
 
     private List<Restaurant> getRestaurants(String category) {
         AssetManager assetManager = getAssets();

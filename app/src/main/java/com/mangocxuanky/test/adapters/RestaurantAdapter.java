@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -22,9 +23,12 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
     private final List<Restaurant> restaurantsLists;
     private final Context context;
 
-    public RestaurantAdapter(Context context, List<Restaurant> restaurants) {
+    private final OnItemClickListener listener;
+
+    public RestaurantAdapter(Context context, List<Restaurant> restaurants, OnItemClickListener listener) {
         this.context = context;
         this.restaurantsLists = restaurants;
+        this.listener = listener;
     }
 
     @NonNull
@@ -43,6 +47,9 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
         // Assuming you have a method to get the drawable resource id by name
         int resId = context.getResources().getIdentifier(restaurant.getPhoto(), "drawable", context.getPackageName());
         holder.restaurantImage.setImageResource(resId);
+        holder.itemView.setOnClickListener( v ->
+            listener.onItemClick(restaurant)
+        );
     }
 
     @Override
@@ -62,5 +69,10 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
             dishName = view.findViewById(R.id.restaurant_dish);
             ratingCount = view.findViewById(R.id.restaurant_item_ratingcount);
         }
+    }
+
+
+    public interface OnItemClickListener {
+        void onItemClick(Restaurant restaurant);
     }
 }

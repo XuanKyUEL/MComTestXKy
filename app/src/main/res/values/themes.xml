@@ -5,5 +5,10 @@
         <item name="colorPrimary">@color/colorPrimary</item>
     </style>
 
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/scale_up_bottom_top</item>
+        <item name="android:windowExitAnimation">@anim/scale_down_top_bottom</item>
+    </style>
+
     <style name="Theme.MaNgocXuanKy" parent="Base.Theme.MaNgocXuanKy" />
 </resources>
