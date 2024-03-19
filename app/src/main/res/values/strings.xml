@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MaNgocXuanKy</string>
+    <string name="rating_count_format">(%s)</string>
 </resources>

@@ -39,7 +39,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
         Restaurant restaurant = restaurantsLists.get(position);
         holder.restaurantName.setText(restaurant.getPlaceName());
         holder.dishName.setText(restaurant.getDishName());
-        holder.ratingCount.setText(restaurant.getRatingCount());
+        holder.ratingCount.setText(context.getString(R.string.rating_count_format, restaurant.getRatingCount()));
         // Assuming you have a method to get the drawable resource id by name
         int resId = context.getResources().getIdentifier(restaurant.getPhoto(), "drawable", context.getPackageName());
         holder.restaurantImage.setImageResource(resId);

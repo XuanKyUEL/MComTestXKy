@@ -14,6 +14,7 @@ import com.mangocxuanky.test.R;
 import com.mangocxuanky.test.adapters.CategoryAdapter;
 import com.mangocxuanky.test.adapters.PromotionAdapter;
 import com.mangocxuanky.test.databinding.ActivityMainBinding;
+import com.mangocxuanky.test.utils.CONSTANTS;
 
 import java.util.ArrayList;
 
@@ -51,9 +52,9 @@ public class MainActivity extends AppCompatActivity {
             if (position == 2 || position == 5) {
                 Intent intent = new Intent(MainActivity.this, RestaurantsActivity.class);
                 if (position == 2) {
-                    intent.putExtra("category", "Lunch Box");
+                    intent.putExtra("category", CONSTANTS.LUNCH_BOX);
                 } else {
-                    intent.putExtra("category", "Noodle");
+                    intent.putExtra("category", CONSTANTS.NOODLE);
                 }
                 startActivity(intent);
             }
