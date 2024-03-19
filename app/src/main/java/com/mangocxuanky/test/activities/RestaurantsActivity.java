@@ -3,6 +3,7 @@ package com.mangocxuanky.test.activities;
 import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
@@ -103,5 +104,14 @@ public class RestaurantsActivity extends AppCompatActivity {
             // Set the TextView as the title.
             actionBar.setCustomView(textView);
             actionBar.setDisplayShowCustomEnabled(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
