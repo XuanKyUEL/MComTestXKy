@@ -44,9 +44,39 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Cơm Sườn"
-            android:textColor="#767171"
+            android:textColor="@color/subcolor"
             android:paddingStart="12dp"
             android:textSize="15sp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4.5"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:layout_marginEnd="2dp"
+                android:textColor="@color/yellow"/>
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/star"/>
+            <TextView
+                android:id="@+id/restaurant_item_ratingcount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" (200)"
+                android:textSize="16sp"
+                android:textColor="@color/subcolor"/>
+
+        </LinearLayout>
+
     </LinearLayout>
 
 

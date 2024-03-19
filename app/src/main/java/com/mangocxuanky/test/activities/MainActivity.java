@@ -1,5 +1,6 @@
 package com.mangocxuanky.test.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 
@@ -41,6 +42,22 @@ public class MainActivity extends AppCompatActivity {
         loadCategoryList();
         initPromotionList();
         loadPromotionList();
+        loadMenu();
+    }
+
+    private void loadMenu() {
+        binding.gridViewCategory.setOnItemClickListener((parent, view, position, id) -> {
+
+            if (position == 2 || position == 5) {
+                Intent intent = new Intent(MainActivity.this, RestaurantsActivity.class);
+                if (position == 2) {
+                    intent.putExtra("category", "Lunch Box");
+                } else {
+                    intent.putExtra("category", "Noodle");
+                }
+                startActivity(intent);
+            }
+        });
     }
 
     private void initPromotionList() {
