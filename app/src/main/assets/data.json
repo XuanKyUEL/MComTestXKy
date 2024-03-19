@@ -1,4 +1,4 @@
-[{
+{
         "LUNCH_BOX": [{
                 "placeName": "Cơm Tấm Đại Đồng",
                 "dishName": "Cơm Sườn",
@@ -63,9 +63,7 @@
                 "ratingCount": "999+",
                 "address": "22 Đoàn Kết, P. Bình Thọ, Q. Thủ Đức, Tp.HCM"
             }
-        ]
-    },
-    {
+        ],
         "NOODLE": [{
                 "placeName": "Bún Đậu Mẹt Tre - Hoàng Diệu 2",
                 "dishName": "Bún Đậu Tá Lả",
@@ -132,4 +130,3 @@
             }
         ]
     }
-]
