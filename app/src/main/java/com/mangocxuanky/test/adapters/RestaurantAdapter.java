@@ -42,6 +42,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
     public void onBindViewHolder(@NonNull RestaurantViewHolder holder, int position) {
         Restaurant restaurant = restaurantsLists.get(position);
         holder.restaurantName.setText(restaurant.getPlaceName());
+        holder.itemRating.setText(String.valueOf(restaurant.getRatingValue()));
         holder.dishName.setText(restaurant.getDishName());
         holder.ratingCount.setText(context.getString(R.string.rating_count_format, restaurant.getRatingCount()));
         // Assuming you have a method to get the drawable resource id by name
@@ -60,7 +61,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
 
     public static class RestaurantViewHolder extends RecyclerView.ViewHolder {
         ImageView restaurantImage;
-        TextView restaurantName,dishName,ratingCount;
+        TextView restaurantName,dishName,ratingCount,itemRating;
 
         public RestaurantViewHolder(View view) {
             super(view);
@@ -68,6 +69,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
             restaurantName = view.findViewById(R.id.restaurant_item_name);
             dishName = view.findViewById(R.id.restaurant_dish);
             ratingCount = view.findViewById(R.id.restaurant_item_ratingcount);
+            itemRating = view.findViewById(R.id.restaurant_item_rating);
         }
     }
 

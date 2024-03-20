@@ -7,10 +7,10 @@
         android:toYScale="0.0"
         android:pivotX="50%"
         android:pivotY="100%"
-        android:duration="300"/>
+        android:duration="400"/>
     <translate
         android:fromYDelta="0"
         android:toYDelta="100%"
-        android:duration="300"/>
+        android:duration="400"/>
 
 </set>
