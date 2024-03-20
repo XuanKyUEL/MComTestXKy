@@ -1,6 +1,7 @@
 package com.mangocxuanky.test.adapters;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mangocxuanky.test.R;
+import com.mangocxuanky.test.customize.DebouncedOnClickListener;
 import com.mangocxuanky.test.databinding.RestaurantItemBinding;
 import com.mangocxuanky.test.models.Restaurant;
 
@@ -58,7 +60,12 @@ public class RestaurantAdapter extends ListAdapter<Restaurant, RestaurantAdapter
                     .getIdentifier(restaurant.getPhoto(), "drawable",
                     binding.getRoot().getContext().getPackageName()
             ));
-            binding.getRoot().setOnClickListener(v -> listener.onItemClick(restaurant));
+            binding.getRoot().setOnClickListener(new DebouncedOnClickListener() {
+                @Override
+                public void onDebouncedClick(View v) {
+                    listener.onItemClick(restaurant);
+                }
+            });
         }
     }
 
