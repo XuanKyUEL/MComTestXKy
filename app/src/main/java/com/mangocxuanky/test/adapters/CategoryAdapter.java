@@ -10,18 +10,20 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 
 import com.mangocxuanky.test.R;
+import com.mangocxuanky.test.utils.CONSTANTS;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CategoryAdapter extends ArrayAdapter<Integer> {
     private final Context context;
 
-    private final ArrayList<Integer> values;
+    private final List<Integer> values;
 
-    public CategoryAdapter(Context context, ArrayList<Integer> values) {
-        super(context, R.layout.category_grid_item, values);
+    public CategoryAdapter(Context context) {
+        super(context, R.layout.category_grid_item, CONSTANTS.CATEGORY_LIST);
         this.context = context;
-        this.values = values;
+        this.values = CONSTANTS.CATEGORY_LIST;
     }
 
     @NonNull

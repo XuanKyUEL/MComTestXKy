@@ -7,7 +7,7 @@
     <ImageView
         android:id="@+id/promotionblog_item_image"
         android:layout_width="200dp"
-        android:layout_height="150dp"
+        android:layout_height="130dp"
         android:scaleType="fitStart"
         android:src="@drawable/chaosuon_promo"
         app:layout_constraintEnd_toEndOf="parent"

@@ -12,6 +12,8 @@ public class Restaurant {
     private String dishName;
     private String photo;
     private float ratingValue;
+    private String ratingCount;
+    private String address;
 
     public Restaurant(String placeName, String dishName, String photo, float ratingValue, String ratingCount, String address) {
         this.placeName = placeName;
@@ -70,6 +72,20 @@ public class Restaurant {
         this.address = address;
     }
 
-    private String ratingCount;
-    private String address;
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Restaurant restaurant = (Restaurant) obj;
+        return Float.compare(restaurant.ratingValue, ratingValue) == 0 &&
+                placeName.equals(restaurant.placeName) &&
+                dishName.equals(restaurant.dishName) &&
+                photo.equals(restaurant.photo) &&
+                ratingCount.equals(restaurant.ratingCount) &&
+                address.equals(restaurant.address);
+    }
 }

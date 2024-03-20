@@ -1,80 +1,80 @@
 package com.mangocxuanky.test.adapters;
 
-import android.content.Context;
-import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mangocxuanky.test.R;
+import com.mangocxuanky.test.databinding.RestaurantItemBinding;
 import com.mangocxuanky.test.models.Restaurant;
 
-import java.util.List;
-
-public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.RestaurantViewHolder> {
-
-    private final List<Restaurant> restaurantsLists;
-    private final Context context;
+/**
+ * Adapter for the list of restaurants.
+ * This adapter connects the data with the RecyclerView that displays the list.
+ */
+public class RestaurantAdapter extends ListAdapter<Restaurant, RestaurantAdapter.RestaurantViewHolder> {
 
     private final OnItemClickListener listener;
 
-    public RestaurantAdapter(Context context, List<Restaurant> restaurants, OnItemClickListener listener) {
-        this.context = context;
-        this.restaurantsLists = restaurants;
+    public RestaurantAdapter(OnItemClickListener listener) {
+        super(DIFF_CALLBACK);
         this.listener = listener;
     }
 
     @NonNull
     @Override
     public RestaurantViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.restaurant_item, parent, false);
-        return new RestaurantViewHolder(itemView);
+        return new RestaurantViewHolder(RestaurantItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull RestaurantViewHolder holder, int position) {
-        Restaurant restaurant = restaurantsLists.get(position);
-        holder.restaurantName.setText(restaurant.getPlaceName());
-        holder.itemRating.setText(String.valueOf(restaurant.getRatingValue()));
-        holder.dishName.setText(restaurant.getDishName());
-        holder.ratingCount.setText(context.getString(R.string.rating_count_format, restaurant.getRatingCount()));
-        // Assuming you have a method to get the drawable resource id by name
-        int resId = context.getResources().getIdentifier(restaurant.getPhoto(), "drawable", context.getPackageName());
-        holder.restaurantImage.setImageResource(resId);
-        holder.itemView.setOnClickListener( v ->
-            listener.onItemClick(restaurant)
-        );
+        Restaurant restaurant = getItem(position);
+        holder.bind(restaurant, listener);
     }
 
-    @Override
-    public int getItemCount() {
-        return restaurantsLists.size();
-    }
+    /**
+     * ViewHolder for restaurant items. All work is done by binding class
+     */
+    static class RestaurantViewHolder extends RecyclerView.ViewHolder {
+        private final RestaurantItemBinding binding;
 
+        public RestaurantViewHolder(RestaurantItemBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+        }
 
-    public static class RestaurantViewHolder extends RecyclerView.ViewHolder {
-        ImageView restaurantImage;
-        TextView restaurantName,dishName,ratingCount,itemRating;
-
-        public RestaurantViewHolder(View view) {
-            super(view);
-            restaurantImage = view.findViewById(R.id.restaurant_item_image);
-            restaurantName = view.findViewById(R.id.restaurant_item_name);
-            dishName = view.findViewById(R.id.restaurant_dish);
-            ratingCount = view.findViewById(R.id.restaurant_item_ratingcount);
-            itemRating = view.findViewById(R.id.restaurant_item_rating);
+        public void bind(Restaurant restaurant, OnItemClickListener listener) {
+            binding.restaurantItemName.setText(restaurant.getPlaceName());
+            binding.restaurantItemRating.setText(String.valueOf(restaurant.getRatingValue()));
+            binding.restaurantDish.setText(restaurant.getDishName());
+            binding.restaurantItemRatingcount.setText(binding.getRoot().getContext().getString(R.string.rating_count_format, restaurant.getRatingCount()));
+            binding.restaurantItemImage.setImageResource(binding
+                    .getRoot().getContext().getResources()
+                    .getIdentifier(restaurant.getPhoto(), "drawable",
+                    binding.getRoot().getContext().getPackageName()
+            ));
+            binding.getRoot().setOnClickListener(v -> listener.onItemClick(restaurant));
         }
     }
-
 
     public interface OnItemClickListener {
         void onItemClick(Restaurant restaurant);
     }
+
+    private static final DiffUtil.ItemCallback<Restaurant> DIFF_CALLBACK = new DiffUtil.ItemCallback<Restaurant>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull Restaurant oldItem, @NonNull Restaurant newItem) {
+            return oldItem.getPlaceName().equals(newItem.getPlaceName());
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull Restaurant oldItem, @NonNull Restaurant newItem) {
+            return oldItem.equals(newItem);
+        }
+    };
 }

@@ -66,7 +66,8 @@ public class RestaurantsActivity extends AppCompatActivity {
         category = fromCategory(category);
         List<Restaurant> restaurants = getRestaurants(category);
 
-        RestaurantAdapter restaurantAdapter = new RestaurantAdapter(this, restaurants,this::showDetailsDialog);
+        RestaurantAdapter restaurantAdapter = new RestaurantAdapter(this::showDetailsDialog);
+        restaurantAdapter.submitList(restaurants);
         binding.recycleViewRes.setAdapter(restaurantAdapter);
         binding.recycleViewRes.setLayoutManager(new LinearLayoutManager(this));
     }
