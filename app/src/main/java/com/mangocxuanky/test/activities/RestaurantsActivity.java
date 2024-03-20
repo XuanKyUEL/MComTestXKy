@@ -1,14 +1,10 @@
 package com.mangocxuanky.test.activities;
 
 import android.app.Dialog;
-import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.MenuItem;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,7 +17,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.mangocxuanky.test.R;
@@ -39,10 +34,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * This activity is responsible for displaying a list of restaurants.
+ * It fetches the restaurant data from a local JSON file and displays it in a RecyclerView.
+ * When a restaurant item is clicked, a detailed dialog is shown with more information about the restaurant.
+ */
 public class RestaurantsActivity extends AppCompatActivity {
 
     ActivityRestaurantsBinding binding;
-
     boolean isRice = false;
 
     @Override
@@ -59,6 +58,9 @@ public class RestaurantsActivity extends AppCompatActivity {
         setActionBar(binding.toolbar);
     }
 
+    /**
+     * Load the restaurants data and set up the RecyclerView.
+     */
     private void loadRestaurants() {
         String category = getIntent().getStringExtra("category");
         category = fromCategory(category);
@@ -69,6 +71,11 @@ public class RestaurantsActivity extends AppCompatActivity {
         binding.recycleViewRes.setLayoutManager(new LinearLayoutManager(this));
     }
 
+    /**
+     * Show a dialog with detailed information about the selected restaurant.
+     *
+     * @param restaurant The selected restaurant.
+     */
     private void showDetailsDialog(Restaurant restaurant) {
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.custom_detail_res_dialog);
@@ -78,30 +85,30 @@ public class RestaurantsActivity extends AppCompatActivity {
         // set animation
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
 
-        // ánh xạ
+        // Find the views in the dialog layout
         ImageView dialogImage = dialog.findViewById(R.id.custom_detail_res_dialog_image);
         TextView dialogName = dialog.findViewById(R.id.custom_detail_res_dialog_name);
         TextView dialogRating = dialog.findViewById(R.id.custom_detail_res_dialog_rating);
         TextView dialogPlace = dialog.findViewById(R.id.custom_detail_res_dialog_place);
 
-        // set data
+        // Set the data to the views
         dialogName.setText(restaurant.getPlaceName());
         dialogRating.setText(String.valueOf(restaurant.getRatingValue()));
         dialogPlace.setText(restaurant.getAddress());
-        int resId = getResources().getIdentifier(restaurant.getPhoto(), "drawable", getPackageName());
-        dialogImage.setImageResource(resId);
 
+        // Set the image resource directly
+        String imageName = restaurant.getPhoto();
+        int resId = getResources().getIdentifier(imageName, "drawable", getPackageName());
+        dialogImage.setImageResource(resId);
 
         dialog.show();
     }
 
-    private void loadDialogData() {
-        // set data to dialog
-
-    }
-
-
-
+    /**
+     * Fetch the restaurants data from the local JSON file.
+     * @param category The category of the restaurants to fetch.
+     * @return A list of restaurants in the specified category.
+     */
     private List<Restaurant> getRestaurants(String category) {
         AssetManager assetManager = getAssets();
         try (InputStream is = assetManager.open("data.json")) {
@@ -118,6 +125,11 @@ public class RestaurantsActivity extends AppCompatActivity {
         return new ArrayList<>();
     }
 
+    /**
+     * Determine the category from the intent extra and set the title accordingly.
+     * @param category The category from the intent extra.
+     * @return The determined category.
+     */
     private String fromCategory(String category) {
         String cate = getIntent().getStringExtra("category");
 
@@ -133,28 +145,35 @@ public class RestaurantsActivity extends AppCompatActivity {
         return category;
     }
 
-
-
+    /**
+     * Set up the action bar with a custom title and back button.
+     * @param toolbar The toolbar to set as the action bar.
+     */
     public void setActionBar(@Nullable Toolbar toolbar) {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
-            assert actionBar != null;
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            // set icon arrow
-            actionBar.setHomeAsUpIndicator(R.drawable.back_icon);
-            actionBar.setDisplayShowTitleEnabled(false);
-            actionBar.setTitle("Restaurants");
+        assert actionBar != null;
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        // set icon arrow
+        actionBar.setHomeAsUpIndicator(R.drawable.back_icon);
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setTitle("Restaurants");
         // Create a TextView programmatically.
-            TextView textView = new TextView(this);
-            textView.setText("Restaurants");
-            textView.setTextColor(Color.WHITE);
-            textView.setTextSize(20);
+        TextView textView = new TextView(this);
+        textView.setText("Restaurants");
+        textView.setTextColor(Color.WHITE);
+        textView.setTextSize(20);
 
-            // Set the TextView as the title.
-            actionBar.setCustomView(textView);
-            actionBar.setDisplayShowCustomEnabled(true);
+        // Set the TextView as the title.
+        actionBar.setCustomView(textView);
+        actionBar.setDisplayShowCustomEnabled(true);
     }
 
+    /**
+     * Handle the selection of menu items in the action bar.
+     * @param item The selected menu item.
+     * @return true if the selection was handled, false otherwise.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
